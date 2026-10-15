@@ -5,8 +5,8 @@
    e corre `npm run build`. Também podes preencher aqui diretamente. */
 
 var __env = (window.PICALTA_ENV || {}).cloudinary || {};
-var CLOUDINARY_CLOUD_NAME = __env.cloudName || 'dwnteeamx';
-var CLOUDINARY_UNSIGNED_PRESET = __env.unsignedPreset || 'picalto';
+var CLOUDINARY_CLOUD_NAME = __env.cloudName || '';
+var CLOUDINARY_UNSIGNED_PRESET = __env.unsignedPreset || '';
 
 /* ---------- Storage seguro (persistente com fallback em memória) ----------
    Em iframes sandboxed, a persistência do browser pode estar indisponível.

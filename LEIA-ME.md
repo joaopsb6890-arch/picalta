@@ -26,6 +26,16 @@ Evolução da v4.3. Mantém a arquitetura original (site estático em `public/`,
 - Fotografias: visualizador ampliado, gosto com duplo clique, carrossel, grelha de exploração e grelha do perfil.
 - Tema claro e escuro, tamanho de texto, reduzir movimento.
 
+### Novidades da versão 5.2
+
+- **Tipo de letra e aparência** (Definições > Aparência): quatro tipos de letra (Padrão: Plus Jakarta Sans; Editorial: Newsreader; Legível: Atkinson Hyperlegible, pensada para leitura fácil; Suave: Nunito), seis cores de destaque e duas densidades (confortável e compacta). Tudo é guardado nas preferências privadas e funciona em modo claro e escuro. O tipo de letra por defeito mudou de Work Sans para Plus Jakarta Sans.
+- **Notas de 24 horas**: uma frase curta (até 60 caracteres) acima das histórias, visível para as pessoas que aparecem no teu feed. Podes responder por mensagem a partir da nota. Guardada em `users/{uid}.note`.
+- **Publicações fixadas**: até três no topo do teu perfil (menu da publicação > Fixar no perfil). Guardadas em `users/{uid}.pinned`.
+- **Tempo e pausas**: contador de tempo diário (só no teu dispositivo), lembrete de pausa a cada 20, 30, 45 ou 60 minutos, meta diária opcional e uma pausa guiada de um minuto para respirar.
+- **Pesquisa (Ctrl+K)**: pesquisas recentes e resultados de jogos que abrem o jogo diretamente.
+- **Melhorias**: definições reorganizadas em cartões, sugestões rápidas na PicalAi, emojis substituídos por ícones nos menus, tipografia mais nítida.
+- As regras do Firestore existentes já permitem ao próprio utilizador atualizar `note` e `pinned` no seu documento. Não é preciso mudar nada.
+
 ### Novidades da versão 5.1
 
 - Reels: separador novo com vídeos verticais, deslize para o seguinte, reprodução automática, som, pausa com toque, gosto com duplo toque, comentários, guardar, partilhar, seguir e criação de reel (até 80 MB e 90 s). O vídeo vai para o Cloudinary: o preset não assinado tem de aceitar vídeo (em Settings > Upload > Upload presets, sem restrição de tipo de recurso). Atalhos: setas ou J/K para mudar, M som, Espaço pausa, L gosto.

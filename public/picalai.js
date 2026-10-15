@@ -17,6 +17,17 @@
     if (ensureUi._done) return;
     ensureUi._done = true;
     $('#ai-form').addEventListener('submit', onSubmit);
+    const sug = $('#ai-suggestions');
+    if (sug) {
+      const ideas = ['Dá-me cinco ideias de legenda para um pôr do sol', 'Sugere uma ideia de reel de 15 segundos', 'Ajuda-me a escrever uma bio simpática', 'Conta-me uma curiosidade sobre Portugal'];
+      sug.innerHTML = ideas.map((t) => '<button type="button" class="chip" data-ai-idea>' + escapeHtml_(t) + '</button>').join('');
+      sug.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-ai-idea]');
+        if (!b) return;
+        $('#ai-input').value = b.textContent;
+        $('#ai-form').requestSubmit();
+      });
+    }
     $('#ai-clear-btn').addEventListener('click', () => {
       history = [];
       renderMessages();

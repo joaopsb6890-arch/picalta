@@ -974,8 +974,9 @@ function renderSettings() {
   const status = $('#cloudinary-status');
   if (status) {
     status.innerHTML = cloudinaryConfigured()
-      ? '✅ Cloudinary configurado — uploads de imagens funcionais.'
-      : '⚠️ Cloudinary <b>não configurado</b>. Os uploads de imagens estão desativados até editares o ficheiro <code>config.js</code>. Passos: 1) cria conta em <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> (grátis, sem cartão); 2) copia o Cloud Name do Dashboard; 3) Settings → Upload → Add upload preset → Unsigned → copia o nome; 4) cola os dois valores em <code>config.js</code>.';
+      ? '<b>Cloudinary configurado.</b> O envio de fotografias e vídeos está ativo.'
+      : '<b>Cloudinary não configurado.</b> Sem isto, fotografias e vídeos não podem ser enviados. Define <code>CLOUDINARY_CLOUD_NAME</code> e <code>CLOUDINARY_UNSIGNED_PRESET</code> no <code>.env</code> (ou nas variáveis da Vercel) e volta a fazer o build.';
+    status.classList.toggle('ok', cloudinaryConfigured());
   }
   if ($('#settings-email')) $('#settings-email').textContent = state.me.email || '—';
   if ($('#settings-level')) $('#settings-level').textContent = state.player.level || 1;

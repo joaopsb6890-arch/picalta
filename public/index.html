@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzY3MmVhNCIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTQiIHI9IjYiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNNyAyNGMxLjUtNSA1LTggOS04czcuNSAzIDkgOCIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="loading.css" />
 <style>
 /* ===== Design tokens (Picalta) ===== */
@@ -51,7 +51,7 @@
   --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 
   --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Work Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Helvetica Neue', system-ui, sans-serif;
 
   --content-feed: 640px;
   --content-app: 1080px;
@@ -597,6 +597,7 @@ a, button, [role='button'], input, textarea, select {
 </style>
 <link rel="stylesheet" href="v5.css" />
 <link rel="stylesheet" href="reels.css" />
+<link rel="stylesheet" href="extras.css" />
 </head>
 <body>
 <a class="skip-link" href="#main-content">Saltar para o conteúdo</a>
@@ -807,14 +808,14 @@ a, button, [role='button'], input, textarea, select {
 
     <!-- Jogos -->
     <section class="view" id="view-games">
-      <h2 class="page-title" style="margin-bottom:var(--space-6)">🎮 Jogos</h2>
+      <h2 class="page-title" style="margin-bottom:var(--space-6)">Jogos</h2>
       <div id="games-home"></div>
       <div id="game-canvas-wrap" style="display:none"></div>
     </section>
 
     <!-- Música -->
     <section class="view" id="view-music">
-      <h2 class="page-title" style="margin-bottom:var(--space-6)">🎵 Música partilhada</h2>
+      <h2 class="page-title" style="margin-bottom:var(--space-6)">Música partilhada</h2>
       <button class="btn" id="share-song-btn" style="margin-bottom:var(--space-4)">Partilhar música</button>
       <div class="music-list" id="music-list"></div>
       <div class="music-suggestions" style="margin-top:var(--space-8)">
@@ -830,7 +831,7 @@ a, button, [role='button'], input, textarea, select {
 
     <!-- Grupos -->
     <section class="view" id="view-groups">
-      <h2 class="page-title" style="margin-bottom:var(--space-6)">👥 Grupos</h2>
+      <h2 class="page-title" style="margin-bottom:var(--space-6)">Grupos</h2>
       <button class="btn" id="new-group-btn" style="margin-bottom:var(--space-4)">Criar grupo</button>
       <div class="groups-list" id="groups-list"></div>
       <div id="group-detail" style="display:none"></div>
@@ -858,15 +859,15 @@ a, button, [role='button'], input, textarea, select {
     <!-- PicalAi (IA) -->
     <section class="view" id="view-ai">
       <div class="page-head">
-        <h2 class="page-title">🤖 PicalAi</h2>
+        <h2 class="page-title">PicalAi</h2>
         <div class="actions">
           <span class="ai-status" id="ai-status">…</span>
           <button class="btn ghost small" id="ai-clear-btn">Limpar conversa</button>
         </div>
       </div>
       <div class="ai-intro" id="ai-intro">
-        Olá! Sou a <b>PicalAi</b>, a assistente de IA do Picalta. Pergunta-me o que quiseres — posso conversar,
-        dar ideias de posts, sugerir jogos, ou ajudar com o que precisares. Escreve em baixo 👇
+        <p>Olá, sou a <b>PicalAi</b>, a assistente do Picalta. Posso dar ideias de legendas e reels, ajudar com a tua bio, sugerir jogos ou só conversar.</p>
+        <div class="ai-suggestions" id="ai-suggestions" role="group" aria-label="Sugestões"></div>
       </div>
       <div class="ai-messages" id="ai-messages" aria-live="polite"></div>
       <form class="ai-input" id="ai-form">
@@ -877,36 +878,40 @@ a, button, [role='button'], input, textarea, select {
 
     <!-- Sondagens -->
     <section class="view" id="view-polls">
-      <h2 class="page-title" style="margin-bottom:var(--space-6)">📊 Sondagens</h2>
+      <h2 class="page-title" style="margin-bottom:var(--space-6)">Sondagens</h2>
       <button class="btn" id="new-poll-btn" style="margin-bottom:var(--space-4)">Nova sondagem</button>
       <div class="polls-list" id="polls-list"></div>
     </section>
 
     <!-- Definições -->
     <section class="view" id="view-settings">
-      <h2 class="page-title" style="margin-bottom:var(--space-6)">⚙️ Definições</h2>
-      <div class="settings-card">
-        <h3>Armazenamento de imagens</h3>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3)">O Firebase Storage requer o plano Blaze (cartão de crédito). Para evitar cartão, usamos <b>Cloudinary</b> (grátis, sem cartão).</p>
-        <div id="cloudinary-status" style="padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md);font-size:var(--text-sm);margin-bottom:var(--space-3)"></div>
-        <ol style="font-size:var(--text-sm);color:var(--color-text-muted);padding-left:var(--space-5);line-height:1.8">
-          <li>Cria conta gratuita em <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> (sem cartão)</li>
-          <li>Dashboard → copia o <b>Cloud Name</b></li>
-          <li>Settings → Upload → Add upload preset → <b>Unsigned</b> → copia o nome do preset</li>
-          <li>Põe os dois valores no ficheiro <code>.env</code> (<code>CLOUDINARY_CLOUD_NAME</code> e <code>CLOUDINARY_UNSIGNED_PRESET</code>) e corre <code>npm run build</code> (na Vercel isto acontece sozinho)</li>
-        </ol>
+      <h2 class="page-title" style="margin-bottom:var(--space-6)">Definições</h2>
+      <div class="settings-card preference-card">
+        <h2>Fotografias e vídeos</h2>
+        <p class="data-note">O Picalta usa o Cloudinary (grátis, sem cartão) para guardar fotografias e vídeos.</p>
+        <div id="cloudinary-status" class="status-box"></div>
+        <details class="how-to">
+          <summary>Como configurar</summary>
+          <ol>
+            <li>Cria uma conta gratuita em <a href="https://cloudinary.com" target="_blank" rel="noopener">cloudinary.com</a>.</li>
+            <li>No painel, copia o <b>Cloud Name</b>.</li>
+            <li>Em Settings, Upload, cria um upload preset do tipo <b>Unsigned</b> que aceite imagem e vídeo.</li>
+            <li>Põe os dois valores no <code>.env</code> (<code>CLOUDINARY_CLOUD_NAME</code> e <code>CLOUDINARY_UNSIGNED_PRESET</code>) e corre <code>npm run build</code>. Na Vercel isto acontece sozinho.</li>
+          </ol>
+        </details>
       </div>
-      <div class="settings-card">
-        <h3>Sons</h3>
-        <label style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm)">
-          <input type="checkbox" id="sound-toggle" checked /> Ativar sons de notificação/toast
-        </label>
+      <div class="settings-card preference-card">
+        <h2>Sons</h2>
+        <div class="preference-row"><div><b>Sons de notificação</b><span>Um toque suave quando aparece um aviso.</span></div><label class="switch"><input type="checkbox" id="sound-toggle" checked aria-label="Ativar sons de notificação"><span></span></label></div>
       </div>
-      <div class="settings-card">
-        <h3>Conta</h3>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Email: <b id="settings-email">—</b></p>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Nível: <b id="settings-level">1</b> — XP: <b id="settings-xp">0</b></p>
-        <button class="btn ghost small" id="reset-password-settings" style="margin-top:var(--space-3)">Repor palavra-passe (envia email)</button>
+      <div class="settings-card preference-card">
+        <h2>Conta</h2>
+        <div class="account-rows">
+          <div><span>Email</span><b id="settings-email">—</b></div>
+          <div><span>Nível</span><b id="settings-level">1</b></div>
+          <div><span>XP</span><b id="settings-xp">0</b></div>
+        </div>
+        <button class="btn ghost small" id="reset-password-settings">Repor palavra-passe (envia email)</button>
       </div>
     </section>
 
@@ -985,10 +990,10 @@ a, button, [role='button'], input, textarea, select {
   <div class="more-sheet-backdrop" id="more-sheet-backdrop" style="display:none"></div>
   <div class="more-sheet" id="more-sheet" aria-hidden="true">
     <b style="font-family:var(--font-display);font-size:var(--text-lg);margin-bottom:var(--space-4)">Mais</b>
-    <button class="btn ghost" id="more-story-btn" style="justify-content:center">➕ Nova história</button>
-    <button class="btn ghost" id="more-notif-btn" style="justify-content:center">🔔 Notificações</button>
-    <button class="btn ghost" id="more-settings-btn" style="justify-content:center">⚙️ Definições</button>
-    <button class="btn ghost" id="more-logout-btn" style="justify-content:center">🚪 Sair</button>
+    <button class="btn ghost" id="more-story-btn" style="justify-content:center">Nova história</button>
+    <button class="btn ghost" id="more-notif-btn" style="justify-content:center">Notificações</button>
+    <button class="btn ghost" id="more-settings-btn" style="justify-content:center">Definições</button>
+    <button class="btn ghost" id="more-logout-btn" style="justify-content:center">Sair</button>
   </div>
 </div>
 
@@ -1172,5 +1177,6 @@ a, button, [role='button'], input, textarea, select {
 <script src="app.js"></script>
 <script src="v5.js"></script>
 <script src="reels.js"></script>
+<script src="extras.js"></script>
 </body>
 </html>

@@ -46,6 +46,13 @@ Subcoleção `events/{eventId}/attendees/{uid}`: `{ uid, createdAt }`. Confirmar
 
 `{ uid, postId, targetUid, reason, createdAt }`. Só criação por utilizadores autenticados. A leitura é para quem administra o projeto na consola.
 
+## Campos novos em `users/{uid}` (v5.2)
+
+- `note`: `{ text (até 60 caracteres), at (ms) }` ou `null`. Só é mostrada nas primeiras 24 horas.
+- `pinned`: lista de ids de publicações fixadas no perfil (máximo 3).
+
+Preferências privadas (`users/{uid}/picaltaData/preferences`) ganham: `font` (`padrao`, `editorial`, `legivel`, `suave`), `accent` (`violeta`, `rosa`, `verde`, `azul`, `laranja`, `grafite`), `density` (`confortavel`, `compacta`), `breakEvery` (minutos, 0 desliga) e `dailyGoal` (minutos, 0 sem meta). O tempo de utilização fica só no armazenamento local do browser.
+
 ## Restantes coleções (inalteradas)
 
 `users`, `follows`, `chats/{id}/messages`, `players`, `favorites`, `polls` (+ votos), `songs`, `groups` (+ membros e publicações), `gameScores`.

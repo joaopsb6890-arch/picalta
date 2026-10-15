@@ -16,7 +16,8 @@ function initDemo() {
     ['lara','Lara Santos','lara.santos','#9b6887','Música, fotografia e projetos sem pressa.'],
     ['diogo','Diogo Ferreira','diogo.ferreira','#65818e','O mar é a minha segunda casa.'],
   ];
-  for (const [uid,name,username,avatarColor,bio] of users) put('users/'+uid,{uid,name,username,avatarColor,bio,email:uid==='demo-me'?'demo@picalta.local':'',lastSeen:now-(uid==='tomas'?500000:60000),createdAt:now-86400000});
+  const demoNotes={ines:['A ouvir jazz com chuva lá fora',40],tomas:['Alguém para um trilho no sábado?',200],sofia:['Café novo descoberto em Alfama',600]};
+  for (const [uid,name,username,avatarColor,bio] of users) put('users/'+uid,{uid,name,username,avatarColor,bio,email:uid==='demo-me'?'demo@picalta.local':'',lastSeen:now-(uid==='tomas'?500000:60000),createdAt:now-86400000,...(demoNotes[uid]?{note:{text:demoNotes[uid][0],at:now-demoNotes[uid][1]*60000}}:{})});
   const posts = [
     ['post-mar','ines','demo/p1.jpg','Há lugares que nos fazem esquecer as horas. Hoje fiquei por aqui.','Costa Vicentina',['#portugal','#natureza'],['tomas','sofia','miguel','lara','diogo']],
     ['post-cafe','sofia','demo/p2.jpg','Domingos deviam durar mais. Café quente, flores frescas e nenhum plano.','Lisboa',['#slowmornings','#fotografia'],['ines','tomas','lara']],
