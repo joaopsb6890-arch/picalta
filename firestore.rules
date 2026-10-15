@@ -1,0 +1,92 @@
+rules_version = '2';
+// PROPOSTA para o Picalta 5. Rever antes de publicar. Não foi aplicada à tua conta Firebase.
+// Parte do princípio de que as coleções existentes eram acessíveis a utilizadores autenticados.
+// Se já tens regras mais restritivas, mantém-nas e acrescenta apenas os blocos marcados com NOVO.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create, update: if isOwner(uid);
+
+      // NOVO: dados privados do utilizador
+      match /picaltaData/{doc}  { allow read, write: if isOwner(uid); }
+      match /drafts/{id}        { allow read, write: if isOwner(uid); }
+      match /scheduled/{id}     { allow read, write: if isOwner(uid); }
+    }
+
+    match /posts/{postId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update: if signedIn() && (
+        resource.data.uid == request.auth.uid ||
+        // gostos: qualquer pessoa autenticada só pode mexer no campo likes
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+      );
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+
+      match /comments/{commentId} {
+        allow read: if signedIn();
+        allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+        // NOVO: gostos em comentários (qualquer pessoa) e edição (autor)
+        allow update: if signedIn() && (
+          resource.data.uid == request.auth.uid ||
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+        );
+        allow delete: if signedIn() && (
+          resource.data.uid == request.auth.uid ||
+          get(/databases/$(database)/documents/posts/$(postId)).data.uid == request.auth.uid
+        );
+      }
+    }
+
+    match /stories/{storyId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      // NOVO: reações, uma por pessoa, com o uid como id do documento
+      match /reactions/{uid} {
+        allow read: if signedIn();
+        allow create, update, delete: if isOwner(uid);
+      }
+    }
+
+    // NOVO: eventos e presenças
+    match /events/{eventId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if signedIn() && resource.data.uid == request.auth.uid;
+      match /attendees/{uid} {
+        allow read: if signedIn();
+        allow create, delete: if isOwner(uid);
+      }
+    }
+
+    // NOVO: denúncias. Só criação. Leitura apenas pela consola/administração.
+    match /reports/{id} {
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow read, update, delete: if false;
+    }
+
+    // Coleções existentes da v4.3: ajusta ao teu nível de exigência.
+    match /follows/{id}      { allow read, write: if signedIn(); }
+    match /favorites/{id}    { allow read, write: if signedIn(); }
+    match /players/{uid}     { allow read: if signedIn(); allow write: if isOwner(uid); }
+    match /chats/{chatId} {
+      allow read, write: if signedIn();
+      match /messages/{id} { allow read, write: if signedIn(); }
+    }
+    match /polls/{id} {
+      allow read, write: if signedIn();
+      match /votes/{vote} { allow read, write: if signedIn(); }
+    }
+    match /songs/{id}        { allow read, write: if signedIn(); }
+    match /groups/{id} {
+      allow read, write: if signedIn();
+      match /{sub=**} { allow read, write: if signedIn(); }
+    }
+    match /gameScores/{id}   { allow read, write: if signedIn(); }
+  }
+}

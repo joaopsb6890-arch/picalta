@@ -1,0 +1,13 @@
+{
+  "name": "picalta",
+  "version": "5.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build-config.mjs",
+    "dev": "node scripts/build-config.mjs && npx vercel dev",
+    "dev:static": "node scripts/build-config.mjs && npx serve public -l 3000"
+  }
+}
